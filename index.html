@@ -154,7 +154,7 @@
   <div class="welcome-kudos">
     Kudos for making it through Round 1, <strong class="name" id="welcomeName">Agent</strong>.<br/><br/>
     You decoded the transmission. You found the location. You're still in the game.<br/><br/>
-    But <span class="criminal">SAROO</span> isn't making it easy from here.
+    But <span class="criminal">THE CASE</span> isn't getting easy from here.
     The next clue speaks in <strong>machine language first</strong> —
     then hides behind a <strong>second layer of encryption</strong>.<br/><br/>
     Peel both layers in order. Find the next location. Keep moving.
@@ -393,10 +393,20 @@
     }
 
     // Save to localStorage
+<<<<<<< HEAD
     // Always ensure R (from Level 1) is the first collected letter
     localStorage.setItem("teamId",   id);
     localStorage.setItem("teamName", id);
     localStorage.setItem("collectedLetters", '["R"]');
+=======
+    // Pre-populate Level 1's letter "R" since they completed Level 1 to get here
+    localStorage.setItem("teamId",   id);
+    localStorage.setItem("teamName", id);
+    const existing = localStorage.getItem("collectedLetters");
+    if (!existing || existing === "[]") {
+      localStorage.setItem("collectedLetters", '["R"]');
+    }
+>>>>>>> 22bcb9401eebf1847a00f6c2c012f7ac4eb90d56
     teamId   = id;
     teamName = id;
 
