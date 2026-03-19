@@ -352,23 +352,16 @@
 
   // ── ON LOAD ──
   window.addEventListener("DOMContentLoaded", () => {
-    // Level 2 always starts with R already collected (from Level 1)
-    // Ensure this is always set correctly regardless of domain/device
-    const existing = JSON.parse(localStorage.getItem("collectedLetters") || "[]");
-    if (!existing.includes("R")) {
-      // R is missing — add it (team completed Level 1 to get here)
-      const corrected = ["R", ...existing.filter(l => l !== "R")];
-      localStorage.setItem("collectedLetters", JSON.stringify(corrected));
-    }
+    // Level 2 always starts with ONLY R collected.
+    // Always reset to ["R"] — this is the single source of truth for Level 2.
+    localStorage.setItem("collectedLetters", '["R"]');
 
     if (!teamId) {
-      // No team found — show check-in first
       document.getElementById("checkinScreen").style.display = "flex";
       document.getElementById("checkinId").addEventListener("keydown", e => {
         if (e.key === "Enter") doCheckin();
       });
     } else {
-      // Team found in localStorage — go straight to welcome
       showWelcome();
     }
   });
