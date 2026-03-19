@@ -1,8 +1,28 @@
-// ═══════════════════════════════════════════
-//  CRYPTO CRIME — Level 2 Shared JS
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════════
+//  CRYPTO CRIME — Shared JS
+//  No timer shown to users.
+//  Timestamps are logged server-side via Google Sheets.
+// ═══════════════════════════════════════════════
 
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbz_iI94FjuBai8AB5cry1g3LMh25E41Idu8D3K836pBPOpF4KhkQWqYrrbbuy4rrmaigg/exec";
+
+const VALID_TEAM_IDS = [
+  "MK2601","MK2602","MK2603","MK2604","MK2605",
+  "MK2606","MK2607","MK2608","MK2609","MK2610",
+  "MK2611","MK2612","MK2613","MK2614","MK2615",
+  "MK2616","MK2617","MK2618","MK2619","MK2620"
+];
+
+// ── PICK UP PARAMS FROM URL (carries data across domains) ──
+(function syncFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const teamId           = params.get("teamId");
+  const teamName         = params.get("teamName");
+  const collectedLetters = params.get("collectedLetters");
+  if (teamId)           localStorage.setItem("teamId", teamId);
+  if (teamName)         localStorage.setItem("teamName", teamName);
+  if (collectedLetters) localStorage.setItem("collectedLetters", collectedLetters);
+})();
 
 // ── LOG TO GOOGLE SHEETS ──
 async function logToSheet(data) {
@@ -16,14 +36,6 @@ async function logToSheet(data) {
   } catch (err) {
     console.warn("Sheet log failed:", err);
   }
-}
-
-// ── TIMER ──
-function formatTime(seconds) {
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
-  return `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
 }
 
 // ── LETTER HELPERS ──
@@ -65,10 +77,8 @@ function startBinaryRain(opacity = 0.05) {
     drops = Array(cols).fill(1);
   }
   function draw() {
-    cx.fillStyle = "rgba(2,12,2,0.05)";
-    cx.fillRect(0, 0, c.width, c.height);
-    cx.fillStyle = "#00ff41";
-    cx.font = "14px Share Tech Mono";
+    cx.fillStyle = "rgba(2,12,2,0.05)"; cx.fillRect(0,0,c.width,c.height);
+    cx.fillStyle = "#00ff41"; cx.font = "14px Share Tech Mono";
     drops.forEach((y, i) => {
       cx.fillText(Math.random() > 0.5 ? "1" : "0", i * 14, y * 14);
       if (y * 14 > c.height && Math.random() > 0.975) drops[i] = 0;
