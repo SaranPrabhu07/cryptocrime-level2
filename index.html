@@ -393,20 +393,10 @@
     }
 
     // Save to localStorage
-<<<<<<< HEAD
     // Always ensure R (from Level 1) is the first collected letter
     localStorage.setItem("teamId",   id);
     localStorage.setItem("teamName", id);
     localStorage.setItem("collectedLetters", '["R"]');
-=======
-    // Pre-populate Level 1's letter "R" since they completed Level 1 to get here
-    localStorage.setItem("teamId",   id);
-    localStorage.setItem("teamName", id);
-    const existing = localStorage.getItem("collectedLetters");
-    if (!existing || existing === "[]") {
-      localStorage.setItem("collectedLetters", '["R"]');
-    }
->>>>>>> 22bcb9401eebf1847a00f6c2c012f7ac4eb90d56
     teamId   = id;
     teamName = id;
 
