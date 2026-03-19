@@ -352,6 +352,15 @@
 
   // ── ON LOAD ──
   window.addEventListener("DOMContentLoaded", () => {
+    // Level 2 always starts with R already collected (from Level 1)
+    // Ensure this is always set correctly regardless of domain/device
+    const existing = JSON.parse(localStorage.getItem("collectedLetters") || "[]");
+    if (!existing.includes("R")) {
+      // R is missing — add it (team completed Level 1 to get here)
+      const corrected = ["R", ...existing.filter(l => l !== "R")];
+      localStorage.setItem("collectedLetters", JSON.stringify(corrected));
+    }
+
     if (!teamId) {
       // No team found — show check-in first
       document.getElementById("checkinScreen").style.display = "flex";
@@ -384,9 +393,10 @@
     }
 
     // Save to localStorage
+    // Always ensure R (from Level 1) is the first collected letter
     localStorage.setItem("teamId",   id);
-    localStorage.setItem("teamName", id); // name = ID since we don't have their full name here
-    localStorage.setItem("collectedLetters", "[]"); // fresh start on this device
+    localStorage.setItem("teamName", id);
+    localStorage.setItem("collectedLetters", '["R"]');
     teamId   = id;
     teamName = id;
 
