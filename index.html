@@ -67,6 +67,18 @@
   <button class="btn btn-primary welcome-btn" onclick="enterLevel()">
     ↳ Enter Round 2
   </button>
+
+  <!-- Letters collected so far -->
+  <div style="text-align:center;margin-top:0.5rem;">
+    <div style="font-size:0.6rem;letter-spacing:0.3em;color:var(--text-dim);margin-bottom:0.6rem;text-transform:uppercase;">Letters Collected</div>
+    <div class="letter-tiles" id="splashTiles">
+      <div class="letter-tile" id="splashTile0"><div class="redacted"></div></div>
+      <div class="letter-tile" id="splashTile1"><div class="redacted"></div></div>
+      <div class="letter-tile" id="splashTile2"><div class="redacted"></div></div>
+      <div class="letter-tile" id="splashTile3"><div class="redacted"></div></div>
+      <div class="letter-tile" id="splashTile4"><div class="redacted"></div></div>
+    </div>
+  </div>
 </div>
 
 <!-- UNLOCK SCREEN -->
@@ -234,6 +246,8 @@
 
   window.addEventListener("DOMContentLoaded", () => {
     if (teamName) document.getElementById("welcomeName").textContent = teamName;
+    // Show collected letters on the welcome splash immediately
+    renderLetterTiles("splashTile", "splashTile");
   });
 
   function enterLevel() {
