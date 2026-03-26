@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Level 2 — Crypto Crime</title>
+  <title>Level 2A — Crypto Crime</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
-
     /* ── CHECK-IN SCREEN ── */
     .checkin-screen {
       position: fixed; inset: 0; z-index: 6000;
@@ -32,14 +31,8 @@
       color: var(--green); letter-spacing: 0.2em;
       margin-bottom: 0.3rem;
     }
-    .checkin-sub {
-      font-size: 0.62rem; color: var(--text-dim);
-      letter-spacing: 0.2em; margin-bottom: 1.5rem;
-    }
-    .checkin-desc {
-      font-size: 0.78rem; color: var(--text-dim);
-      line-height: 1.8; margin-bottom: 1.5rem;
-    }
+    .checkin-sub { font-size: 0.62rem; color: var(--text-dim); letter-spacing: 0.2em; margin-bottom: 1.5rem; }
+    .checkin-desc { font-size: 0.78rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1.5rem; }
     .checkin-desc strong { color: var(--text); }
     .checkin-input {
       width: 100%;
@@ -119,18 +112,15 @@
 </head>
 <body>
 
-<!-- ══════════════════════════
-     CHECK-IN SCREEN
-     Shown when no teamId in localStorage
-══════════════════════════ -->
+<!-- CHECK-IN SCREEN -->
 <div class="checkin-screen" id="checkinScreen" style="display:none;">
   <div class="checkin-card">
-    <div class="checkin-icon">🔎</div>
+    <div class="checkin-icon">⚡</div>
     <div class="checkin-title">AGENT CHECK-IN</div>
-    <div class="checkin-sub">// LEVEL 2 · FOOD PROCESSING DEPT</div>
+    <div class="checkin-sub">// LEVEL 2 · PART A · FIELD SCAN</div>
     <div class="checkin-desc">
-      You've made it to the second location.<br/>
-      Enter your <strong>Team ID</strong> to log your arrival and begin Round 2.
+      You've intercepted a new signal.<br/>
+      Enter your <strong>Team ID</strong> to log your arrival and begin the next phase.
     </div>
     <input type="text" class="checkin-input" id="checkinId"
       placeholder="MK26__" maxlength="8" autocomplete="off"/>
@@ -142,25 +132,20 @@
   </div>
 </div>
 
-<!-- ══════════════════════════
-     WELCOME SPLASH
-══════════════════════════ -->
+<!-- WELCOME SPLASH -->
 <div class="welcome-splash" id="welcomeSplash" style="display:none;">
   <div class="welcome-eyebrow">// MINDKRAFT · CRYPTO CRIME</div>
   <div class="welcome-title">ROUND <span>02</span></div>
-  <div class="welcome-subtitle">Binary Interrogation</div>
+  <div class="welcome-subtitle">The Invisible Force</div>
   <div class="welcome-divider"></div>
 
   <div class="welcome-kudos">
-    Kudos for making it through Round 1, <strong class="name" id="welcomeName">Agent</strong>.<br/><br/>
-    You decoded the transmission. You found the location. You're still in the game.<br/><br/>
-    But <span class="criminal">THE CASE</span> isn't getting easy from here.
-    The next clue speaks in <strong>machine language first</strong> —
-    then hides behind a <strong>second layer of encryption</strong>.<br/><br/>
-    Peel both layers in order. Find the next location. Keep moving.
+    You cracked Round 1, <strong class="name" id="welcomeName">Agent</strong>.<br/><br/>
+    But the next clue doesn't speak in numbers or letters.<br/>
+    It speaks in <strong>forces you cannot see</strong> — forces that govern every wire, every chip, every circuit in this building.<br/><br/>
+    <span class="criminal">THE SIGNAL</span> is all around you. You just need to know where it lives.
   </div>
 
-  <!-- Letters collected so far — W (row1) and R (row2) from Level 1 show here -->
   <div class="letters-strip">
     <div class="letters-strip-label">Collected Letters — <span style="color:var(--green)">Row 1 (Part A)</span></div>
     <div class="letter-tiles" id="splashRow1">
@@ -182,24 +167,22 @@
   </div>
 
   <button class="btn btn-primary welcome-btn" onclick="enterLevel()">
-    ↳ Enter Round 2
+    ↳ Read the Riddle
   </button>
 </div>
 
-<!-- ══════════════════════════
-     UNLOCK SCREEN
-══════════════════════════ -->
+<!-- UNLOCK SCREEN -->
 <div class="unlock-screen" id="unlockScreen">
-  <div class="unlock-title">📍 LOCATION UNLOCKED</div>
+  <div class="unlock-title">📍 SIGNAL TRACED</div>
   <div class="letter-earned">
     <div class="letter-earned-label">Letter Collected</div>
-    <div class="letter-earned-char">A</div>
+    <div class="letter-earned-char" id="earnedChar">N</div>
   </div>
-  <div class="unlock-location">ECE DEPARTMENT</div>
-  <div class="unlock-instruction">
-    Head to the <strong style="color:var(--cyan)">ECE Department</strong> on campus.<br/>
+  <div class="unlock-location" id="unlockLocation">EEE DEPARTMENT</div>
+  <div class="unlock-instruction" id="unlockInstruction">
+    Head to the <strong style="color:var(--cyan)">EEE Department</strong> on campus.<br/>
     Find the QR code hidden at the location.<br/>
-    Scan it to access <strong style="color:var(--green)">Level 3</strong>.
+    Scan it to access <strong style="color:var(--green)">Level 2 Part B</strong>.
     <br/><br/>
     <span style="color:var(--yellow);font-size:0.72rem;">⚠ Do not share the QR with other teams.</span>
   </div>
@@ -210,23 +193,19 @@
   </button>
 </div>
 
-<!-- ══════════════════════════
-     NAVBAR
-══════════════════════════ -->
+<!-- NAVBAR -->
 <nav class="navbar" id="mainNav" style="display:none;">
   <a href="#" class="nav-logo">CRYPTO<span>CRIME</span></a>
   <div class="nav-links">
     <a href="https://crypto-crime-level1.vercel.app/tools.html" target="_blank">Tools</a>
   </div>
-  <div class="nav-status"><div class="status-dot"></div>LVL 2/6</div>
+  <div class="nav-status"><div class="status-dot"></div>LVL 2A/6</div>
 </nav>
 
-<!-- ══════════════════════════
-     TOP BAR — letters only, no timer
-══════════════════════════ -->
+<!-- TOP BAR -->
 <div class="top-bar" id="topBar" style="display:none;">
   <div style="font-size:0.62rem;color:var(--text-dim);letter-spacing:0.08em;">
-    LEVEL 2 / 6 &nbsp;·&nbsp; BINARY + CAESAR
+    LEVEL 2 / 6 &nbsp;·&nbsp; PART A · CONCEPTUAL RIDDLE
   </div>
   <div class="top-bar-tiles">
     <div class="mini-tile" id="tile0">?</div>
@@ -237,75 +216,64 @@
   </div>
 </div>
 
-<!-- ══════════════════════════
-     MAIN PUZZLE
-══════════════════════════ -->
+<!-- MAIN PUZZLE -->
 <div class="level-wrap" id="levelWrap" style="display:none;padding-top:7rem;">
 
   <div class="progress-bar-wrap">
-    <div class="progress-label"><span>INVESTIGATION PROGRESS</span><span>LEVEL 2 / 6</span></div>
-    <div class="progress-track"><div class="progress-fill" style="width:33.2%"></div></div>
+    <div class="progress-label"><span>INVESTIGATION PROGRESS</span><span>LEVEL 2A / 6</span></div>
+    <div class="progress-track"><div class="progress-fill" style="width:20%"></div></div>
   </div>
 
   <div class="classified-banner">
     <div class="classified-stamp">CLASSIFIED</div>
-    <div class="level-indicator">FILE 002 OF 006 &nbsp;·&nbsp; BINARY + CAESAR</div>
+    <div class="level-indicator">FILE 002A OF 006 &nbsp;·&nbsp; CONCEPTUAL CIPHER</div>
   </div>
 
   <div class="classified-file">
     <div class="file-header">
       <div class="file-meta">
-        <div class="file-id">CASE #MK-2601 &nbsp;·&nbsp; EVIDENCE FILE 02</div>
-        <div class="file-title">The Corrupted Packet</div>
+        <div class="file-id">CASE #MK-2601 &nbsp;·&nbsp; EVIDENCE FILE 02-A</div>
+        <div class="file-title">The Invisible Physics</div>
       </div>
-      <div class="file-cipher-badge">BINARY + CAESAR</div>
+      <div class="file-cipher-badge">CONCEPTUAL</div>
     </div>
 
     <div class="file-body">
 
       <div class="file-section">
-        <div class="file-section-label">Mission Briefing</div>
+        <div class="file-section-label">Intercepted Transmission</div>
         <p class="briefing-text">
-          Our forensics team recovered a <strong>corrupted data packet</strong>
-          from the university's network logs — transmitted by SAROO minutes before the breach.<br/><br/>
-          The packet speaks in <strong>machine language first</strong>, then hides behind a
-          <strong>second layer of encryption</strong>. Peel both layers in order to find the next location.
+          Our forensics team intercepted a fragment from SAROO's private channel.
+          It wasn't written in code — it was written in <strong>concept</strong>.
+          The message points to a place that studies forces <strong>invisible to the naked eye</strong>:
+          forces that push, pull, and refuse to be ignored.
         </p>
       </div>
 
       <div class="file-section">
-        <div class="file-section-label">Step 1 — Decode the Binary</div>
-        <div class="encoded-message" style="font-size:0.88rem;letter-spacing:0.05em;line-height:2.2;word-break:break-all;">
-          01010010 01010000 01010010 00100000
-          01010001 01010010 01000011 01001110
-          01000101 01000111 01011010 01010010
-          01000001 01000111
+        <div class="file-section-label">The Riddle</div>
+        <div class="encoded-message" style="font-size:0.95rem;line-height:2.4;letter-spacing:0.03em;font-style:italic;color:var(--cyan);">
+          I am not gravity, yet I move without mass.<br/>
+          I am not heat, yet I drive every reaction.<br/>
+          Without me, no lamp glows, no signal travels, no machine wakes.<br/><br/>
+          I live in the difference between two points —<br/>
+          one higher, one lower, forever apart.<br/>
+          My flow is controlled by what resists me,<br/>
+          and what resists me defines what I become.<br/><br/>
+          The ones who study my nature,<br/>
+          who tame my path through copper and silicon,<br/>
+          who name me in volts and amperes and ohms —<br/>
+          they have built a home here.<br/><br/>
+          Find that home.<br/>
+          <span style="color:var(--text-dim);font-size:0.8em;">What department am I pointing to?</span>
         </div>
-        <p style="font-size:0.68rem;color:var(--text-dim);margin-top:0.6rem;">
-          ↳ Convert binary to text using the
-          <a href="https://crypto-crime-level1.vercel.app/tools.html" target="_blank" style="color:var(--cyan)">Binary → Text tool</a>.
-          The output is <strong style="color:var(--text)">not the final answer</strong> — it has a second lock.
-        </p>
-      </div>
-
-      <div class="file-section">
-        <div class="file-section-label">Step 2 — Break the Caesar Lock</div>
-        <p class="briefing-text">
-          The decoded binary text has been scrambled with a <strong>Caesar cipher</strong>.
-          Figure out the shift and decode it to reveal the campus location.<br/><br/>
-          <span style="color:var(--text-dim);font-size:0.78rem;">
-            💡 Use the <strong style="color:var(--text)">Caesar decoder</strong> on the
-            <a href="https://crypto-crime-level1.vercel.app/tools.html" target="_blank" style="color:var(--cyan)">Tools page</a>.
-            Try <strong style="color:var(--cyan)">Brute Force</strong> if unsure of the shift.
-          </span>
-        </p>
       </div>
 
       <div class="answer-section">
-        <div class="answer-label">// Submit Final Decoded Answer</div>
+        <div class="answer-label">// Submit Your Answer</div>
         <div class="answer-input-row">
           <input type="text" class="answer-input" id="answerInput"
-            placeholder="TYPE THE LOCATION..."
+            placeholder="TYPE THE DEPARTMENT..."
             autocomplete="off" spellcheck="false"/>
           <button class="btn btn-primary answer-submit" onclick="checkAnswer()">SUBMIT</button>
         </div>
@@ -350,17 +318,13 @@
   startBinaryRain(0.05);
 
   // ── CONFIG ──
-  const VALID_IDS   = ["MK2601","MK2602","MK2603","MK2604","MK2605","MK2606","MK2607","MK2608","MK2609","MK2610","MK2611","MK2612","MK2613","MK2614","MK2615","MK2616","MK2617","MK2618","MK2619","MK2620"];
-  const LEVEL       = 2;
-  const CORRECT_ANS = "ECE DEPARTMENT";
-  const LETTER      = "A";
+  const VALID_IDS   = VALID_TEAM_IDS; // from shared.js
+  const CORRECT_ANS = "EEE DEPARTMENT";
+  const LETTER      = "N";
   const HINTS       = [
-    "Step 1: Use the Binary → Text tool from the Tools page. Paste all 14 binary groups and convert. The output is a scrambled department name.",
-    "Step 2: The scrambled text uses Caesar shift 13. Use the Caesar decoder with shift 13 — or hit Brute Force and look for a real department name."
+    "Hint 1: The riddle describes something that flows — measured in amperes. It's a fundamental force in electronics.",
+    "Hint 2: Volts, amperes, ohms — these are studied by a very specific engineering department on campus."
   ];
-
-  // ── Replace with your actual Level 3 Vercel URL once deployed ──
-  const LEVEL3_BASE = "https://your-level3-site.vercel.app";
 
   let hintsUsed   = 0;
   let levelSolved = false;
@@ -369,17 +333,26 @@
 
   // ── ON LOAD ──
   window.addEventListener("DOMContentLoaded", () => {
-    // Anti-skip: must have completed Part A (riddle2.html) first
-    const currentLevel = localStorage.getItem("currentLevel");
-    if (currentLevel !== "2B") {
-      window.location.href = "riddle2.html";
-      return;
+    // Seed Level 1 letters if not already present (cross-domain: localStorage doesn't carry over)
+    const existing = localStorage.getItem("collectedLetters");
+    if (!existing) {
+      localStorage.setItem("collectedLetters", JSON.stringify({ row1: ["W"], row2: ["R"] }));
+    } else {
+      // Upgrade legacy flat array from Level 1 if needed
+      try {
+        const parsed = JSON.parse(existing);
+        if (Array.isArray(parsed)) {
+          // Legacy flat — migrate: W→row1[0], R→row2[0]
+          localStorage.setItem("collectedLetters", JSON.stringify({ row1: ["W"], row2: ["R"] }));
+        }
+      } catch(e) {
+        localStorage.setItem("collectedLetters", JSON.stringify({ row1: ["W"], row2: ["R"] }));
+      }
     }
 
-    // Safe letter init — preserve existing letters, never overwrite
-    if (!localStorage.getItem("collectedLetters")) {
-      localStorage.setItem("collectedLetters", JSON.stringify({ row1: [], row2: [] }));
-    }
+    // Re-read teamId after syncFromURL may have set it
+    teamId   = localStorage.getItem("teamId");
+    teamName = localStorage.getItem("teamName");
 
     if (!teamId) {
       document.getElementById("checkinScreen").style.display = "flex";
@@ -410,19 +383,13 @@
       return;
     }
 
-    // Save to localStorage — preserve existing letters
     localStorage.setItem("teamId",   id);
     localStorage.setItem("teamName", id);
-    if (!localStorage.getItem("collectedLetters")) {
-      localStorage.setItem("collectedLetters", JSON.stringify({ row1: [], row2: [] }));
-    }
     teamId   = id;
     teamName = id;
 
-    // Log arrival
-    logToSheet({ teamId, teamName, level: LEVEL, letter: "—", action: "level_arrived" });
+    logToSheet({ teamId, teamName, level: "2A", letter: "—", action: "level_arrived" });
 
-    // Hide checkin, show welcome
     document.getElementById("checkinScreen").style.display = "none";
     showWelcome();
   }
@@ -459,7 +426,6 @@
 
   // ── SHOW WELCOME ──
   function showWelcome() {
-    // Set team name
     const el = document.getElementById("welcomeName");
     if (el) el.textContent = teamName || teamId || "Agent";
     renderAllTiles();
@@ -488,38 +454,44 @@
     if (userAns === CORRECT_ANS) {
       levelSolved = true;
       feedback.className   = "answer-feedback correct";
-      feedback.textContent = "✓ CORRECT. Logging progress...";
+      feedback.textContent = "✓ SIGNAL TRACED. Logging progress...";
 
-      // Add A to row2[1]
+      // Add N to row1[1]
       const data = getStructuredLetters();
-      data.row2[1] = LETTER;
+      data.row1[1] = LETTER;
       saveStructuredLetters(data);
 
-      // Advance to Level 3A
-      localStorage.setItem("currentLevel", "3A");
+      // Set current level to 2B
+      localStorage.setItem("currentLevel", "2B");
 
       // Update tiles
       renderAllTiles();
 
-      // Log to sheets
-      await logToSheet({ teamId, teamName, level: "2B", letter: LETTER, action: "level_complete" });
+      await logToSheet({ teamId, teamName, level: "2A", letter: LETTER, action: "level_complete" });
 
       setTimeout(() => {
         document.getElementById("unlockScreen").classList.add("show");
       }, 1000);
 
     } else {
+      // Any wrong input: "Go to X department and scan the QR code"
       input.classList.remove("shake");
       void input.offsetWidth;
       input.classList.add("shake");
       feedback.className   = "answer-feedback wrong";
-      feedback.textContent = "✗ Incorrect. Make sure you complete both steps in order.";
+
+      // Friendly redirect message for any wrong guess
+      const displayInput = userAns.length > 0
+        ? input.value.trim()
+        : "that";
+      feedback.textContent = `Go to ${displayInput} department and scan the QR code`;
       setTimeout(() => input.classList.remove("shake"), 500);
     }
   }
 
-  document.getElementById("answerInput").addEventListener("keydown", e => {
-    if (e.key === "Enter") checkAnswer();
+  document.addEventListener("DOMContentLoaded", () => {
+    const ai = document.getElementById("answerInput");
+    if (ai) ai.addEventListener("keydown", e => { if (e.key === "Enter") checkAnswer(); });
   });
 
   // ── HINTS ──

@@ -38,18 +38,38 @@ async function logToSheet(data) {
   }
 }
 
+// ── STRUCTURED LETTER STORAGE { row1: [], row2: [] } ──
+function getStructuredLetters() {
+  let raw = localStorage.getItem("collectedLetters");
+  if (!raw) return { row1: [], row2: [] };
+  try {
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+      return {
+        row1: Array.isArray(parsed.row1) ? parsed.row1 : [],
+        row2: Array.isArray(parsed.row2) ? parsed.row2 : []
+      };
+    }
+    if (Array.isArray(parsed)) return { row1: parsed, row2: [] };
+  } catch(e) {}
+  return { row1: [], row2: [] };
+}
+
+function saveStructuredLetters(data) {
+  localStorage.setItem("collectedLetters", JSON.stringify(data));
+}
+
 // ── LETTER HELPERS ──
 function getCollectedLetters() {
-  return JSON.parse(localStorage.getItem("collectedLetters") || "[]");
+  const d = getStructuredLetters();
+  return [...(d.row1 || []), ...(d.row2 || [])];
 }
 
 function addLetter(letter) {
-  const letters = getCollectedLetters();
-  if (!letters.includes(letter)) {
-    letters.push(letter);
-    localStorage.setItem("collectedLetters", JSON.stringify(letters));
-  }
-  return letters;
+  const data = getStructuredLetters();
+  if (!data.row1.includes(letter)) data.row1.push(letter);
+  saveStructuredLetters(data);
+  return getCollectedLetters();
 }
 
 function renderLetterTiles(miniPrefix, bigPrefix) {
