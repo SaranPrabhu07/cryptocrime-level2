@@ -350,7 +350,9 @@
   startBinaryRain(0.05);
 
   // ── CONFIG ──
-  const VALID_IDS   = ["MK2601","MK2602","MK2603","MK2604","MK2605","MK2606","MK2607","MK2608","MK2609","MK2610","MK2611","MK2612","MK2613","MK2614","MK2615","MK2616","MK2617","MK2618","MK2619","MK2620"];
+  const VALID_IDS = Array.from({ length: 200 }, (_, i) => {
+  return "MK" + (2601 + i);
+  });
   const LEVEL       = 2;
   const CORRECT_ANS = "ECE DEPARTMENT";
   const LETTER      = "A";
